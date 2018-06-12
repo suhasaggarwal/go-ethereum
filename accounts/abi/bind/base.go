@@ -251,19 +251,13 @@ func (c *BoundContract) FilterLogs(opts *FilterOpts, name string, query ...[]int
 	if opts == nil {
 		opts = new(FilterOpts)
 	}
-	// Append the event selector to the query parameters and construct the topic set
-	query = append([][]interface{}{{c.abi.Events[name].Id()}}, query...)
 
-	topics, err := makeTopics(query...)
-	if err != nil {
-		return nil, nil, err
-	}
 	// Start the background filtering
 	logs := make(chan types.Log, 128)
 
 	config := ethereum.FilterQuery{
 		Addresses: []common.Address{c.address},
-		Topics:    topics,
+		Topics:    []common.Hash{c.abi.Events[name].Id()},
 		FromBlock: new(big.Int).SetUint64(opts.Start),
 	}
 	if opts.End != nil {
@@ -300,19 +294,13 @@ func (c *BoundContract) WatchLogs(opts *WatchOpts, name string, query ...[]inter
 	if opts == nil {
 		opts = new(WatchOpts)
 	}
-	// Append the event selector to the query parameters and construct the topic set
-	query = append([][]interface{}{{c.abi.Events[name].Id()}}, query...)
 
-	topics, err := makeTopics(query...)
-	if err != nil {
-		return nil, nil, err
-	}
 	// Start the background filtering
 	logs := make(chan types.Log, 128)
 
 	config := ethereum.FilterQuery{
 		Addresses: []common.Address{c.address},
-		Topics:    topics,
+		Topics:    []common.Hash{c.abi.Events[name].Id()},
 	}
 	if opts.Start != nil {
 		config.FromBlock = new(big.Int).SetUint64(*opts.Start)
