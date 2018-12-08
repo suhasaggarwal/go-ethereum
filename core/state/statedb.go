@@ -100,11 +100,6 @@ func New(root common.Hash, db Database) (*StateDB, error) {
 	}, nil
 }
 
-// helper method to ensure consistency on the evm
-func (self *StateDB) GetAccounts() []common.Address {
-	return []common.Address{}
-}
-
 // setError remembers the first non-nil error it is called with.
 func (self *StateDB) setError(err error) {
 	if self.dbErr == nil {

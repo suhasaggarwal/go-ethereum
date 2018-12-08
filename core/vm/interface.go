@@ -20,6 +20,7 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/state"
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
@@ -28,6 +29,7 @@ type StateDB interface {
 	CreateAccount(common.Address)
 
 	GetAccounts() []common.Address
+	RawDump() state.Dump
 
 	SubBalance(common.Address, *big.Int)
 	AddBalance(common.Address, *big.Int)
