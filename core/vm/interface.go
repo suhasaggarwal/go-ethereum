@@ -28,7 +28,6 @@ import (
 type StateDB interface {
 	CreateAccount(common.Address)
 
-	GetAccounts() []common.Address
 	RawDump() state.Dump
 
 	SubBalance(common.Address, *big.Int)
